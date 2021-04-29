@@ -2,6 +2,7 @@ package br.com.fiap.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 public class Setup {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CD_SETUP")
+	@GeneratedValue(generator = "setup", strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private String name;
 	private String description;

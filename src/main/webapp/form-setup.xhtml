@@ -30,7 +30,7 @@
 					</p:inputText>
 					
 					<p:outputLabel for="price" value="Price"/>
-					<p:inputText id="price" value="#{setupBean.setup.price}" converterMessage="Preço deve ser um numero">
+					<p:inputText id="price" value="#{setupBean.setup.price}" converterMessage="Preço deve ser um número">
 						<f:validateDoubleRange minimum="0" />
 						<f:ajax event="blur" render="messages" />
 					</p:inputText>
@@ -41,7 +41,7 @@
 			
 		    <f:facet name="footer">
 		        <p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.save}">
-		        	<p:ajax execute="@form" update="table-setups" />
+		        	<p:ajax execute="@form" update="@(.dataTable)" />
 		        </p:commandButton>
 		        <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
 		    </f:facet>
@@ -50,7 +50,7 @@
 		
 		<h:form id="table-setups" >
 		    <div class="card">
-		        <p:dataTable var="setup" value="#{setupBean.setups}">
+		        <p:dataTable var="setup" value="#{setupBean.setups}" styleClass="dataTable">
 		            <p:column headerText="Name">
 		                <h:outputText value="#{setup.name}" />
 		            </p:column>
