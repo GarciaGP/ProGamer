@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+
+		<h:form id="table-setups" >
+		    <div class="card">
+		        <p:dataTable var="usuario" value="#{usuarioBean.usuarios}" styleClass="dataTable">
+		            <p:column headerText="Name">
+		                <h:outputText value="#{usuario.name}" />
+		            </p:column>
+		
+		            <p:column headerText="Bio">
+		                <h:outputText value="#{usuario.birthDate}" />
+		            </p:column>
+		        </p:dataTable>
+		    </div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

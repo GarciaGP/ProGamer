@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+		<p:messages id="messages">
+			<p:autoUpdate />
+		</p:messages>
+
+		<h:form>
+			<p:card class="card-form usuario">
+				<f:facet name="title">
+		        Create an account
+		    </f:facet>
+
+				<h:panelGrid columns="2">
+					<p:outputLabel for="email" value="E-mail" />
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+						required="true" requiredMessage="Please inform an e-mail!"
+						validatorMessage="E-mail is not valid!">
+						<f:validateRegex for="email" pattern="#{usuarioBean.pattern}" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+					<p:outputLabel for="password" value="Password" />
+					<p:password id="password" value="#{usuarioBean.usuario.password}"
+						required="true" feedback="true"
+						requiredMessage="Please inform a password!"
+						validatorMessage="Password must contain at least 6 characters">
+						<f:validateLength minimum="6" />
+						<f:ajax event="blur" render="messages" />
+					</p:password>
+
+					<p:outputLabel for="name" value="Name" />
+					<p:inputText id="name" value="#{usuarioBean.usuario.name}"
+						required="true" requiredMessage="Please inform your name!"
+						validatorMessage="Please inform your name.">
+						<f:validateLength minimum="1" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+					<p:outputLabel for="date" value="Birth date" />
+					<p:datePicker id="date" value="#{usuarioBean.usuario.birthDate}"
+						yearNavigator="true" required="true"
+						requiredMessage="Please inform a date!" yearRange="1900:2021"
+						converterMessage="Please Inform a valid date!">
+						<f:ajax event="blur" render="messages" />
+					</p:datePicker>
+
+				</h:panelGrid>
+
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-check" value="Save"
+						action="#{usuarioBean.save}">
+					</p:commandButton>
+					<p:commandButton icon="pi pi-times" value="Cancel"
+						styleClass="ui-button-secondary" style="margin-left: .5em" />
+				</f:facet>
+			</p:card>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

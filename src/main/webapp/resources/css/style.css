@@ -9,6 +9,10 @@ body{
 	margin: 1em auto;
 }
 
+.card-form.usuario{
+	width: 50%;
+}
+
 .setup-list-item {
     display: -ms-flexbox;
     display: flex;
