@@ -1,13 +1,16 @@
 package br.com.fiap.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +20,15 @@ import javax.persistence.TemporalType;
 @Table(name = "TB_USUARIO_PROGAMER")
 @SequenceGenerator(name = "usuario", sequenceName = "SQ_TB_USUARIO_PROGAMER", allocationSize = 1)
 public class Usuario {
+	
+	public Usuario() {
+		
+	}
+	
+	public Usuario(int codigo) {
+		super();
+		this.codigo = codigo;
+	}
 	
 	@Id
 	@Column(name = "CD_USUARIO")
@@ -35,6 +47,19 @@ public class Usuario {
 	
 	@Column(name = "PW_USUARIO")
 	private String password;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Setup> setups;
+	
+	public void addSetup(Setup setup) {
+		if (this.setups == null)
+			this.setups = new ArrayList<Setup>();
+		
+		setup.setUsuario(this);
+		
+		this.setups.add(setup);
+	}
+	
 	public int getCodigo() {
 		return codigo;
 	}

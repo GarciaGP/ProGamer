@@ -34,6 +34,27 @@ public class UsuarioBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Successfully signed up!"));
 	}
 
+	public String login() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		boolean exist = new UsuarioDao().exist(usuario);
+
+		if (exist) {
+			context.getExternalContext().getSessionMap().put("user", usuario);
+			return "index?faces-redirect=true";
+		}
+
+		context.getExternalContext().getFlash().setKeepMessages(true);
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login inválido", "erro"));
+		return "login?faces-redirect=true";
+	}
+	
+	public String logout() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getSessionMap().remove("user");
+		return "login?faces-redirect=true";
+
+	}
+
 	public List<Usuario> getUsuarios() {
 		return new UsuarioDao().getAll();
 	}
@@ -62,7 +83,5 @@ public class UsuarioBean {
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
 	}
-
-	
 
 }

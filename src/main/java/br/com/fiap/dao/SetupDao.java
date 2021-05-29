@@ -6,29 +6,43 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.com.fiap.model.Setup;
+import br.com.fiap.utils.EntityManagerFacade;
 import br.com.fiap.utils.JPAUtil;
 
 public class SetupDao {
+	
+	private EntityManager manager = new EntityManagerFacade().getEntityManager();
 
+	
 	public void save(Setup setup) {
-		EntityManager manager = JPAUtil.getEntityManager();
-		
 		manager.getTransaction().begin();
 		manager.persist(setup);
 		manager.getTransaction().commit();
-		
-		manager.close();
-		
+		manager.clear();
 	}
 
-	public List<Setup> getAll() {
-		EntityManager manager = JPAUtil.getEntityManager();
-		String jpql = "SELECT s FROM Setup s";
-		TypedQuery<Setup> query = manager.createQuery(jpql, Setup.class);
-		// TODO manager.close();
+	public List<Setup> getAll(){
+		String jpql = "SELECT s FROM Setup s JOIN s.user u";
+		TypedQuery<Setup> createQuery = manager.createQuery(jpql, Setup.class);
+		return createQuery.getResultList();
+	}
 
-		return query.getResultList();
-		
+	public Setup findById(Long id) {
+		return manager.find(Setup.class, id);		
+	}
+	
+	public void update(Setup setup) {
+		manager.getTransaction().begin();
+		manager.merge(setup);
+		manager.flush();
+		manager.getTransaction().commit();
+	}
+	
+	public void delete(Setup setup) {
+		manager.getTransaction().begin();
+		manager.remove(setup);
+		manager.flush();
+		manager.getTransaction().commit();
 	}
 
 }

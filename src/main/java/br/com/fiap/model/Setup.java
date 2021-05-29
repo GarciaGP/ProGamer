@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "TB_SETUP")
@@ -19,9 +24,19 @@ public class Setup {
 	@Column(name = "CD_SETUP")
 	@GeneratedValue(generator = "setup", strategy = GenerationType.SEQUENCE)
 	private Long id;
+	
+	@Column(name = "NM_SETUP")
 	private String name;
+	
+	@Column(name = "DS_SETUP")
 	private String description;
+	
+	@Column(name = "VL_SETUP")
 	private BigDecimal price;
+	
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "CD_USUARIO")
+	private Usuario usuario;
 
 	public Setup() {
 	}
@@ -48,6 +63,22 @@ public class Setup {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario user) {
+		this.usuario = user;
 	}
 
 	@Override
