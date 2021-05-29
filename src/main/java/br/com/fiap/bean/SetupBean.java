@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.fiap.dao.SetupDao;
 import br.com.fiap.model.Setup;
+import br.com.fiap.model.Usuario;
 
 // CDI -> CONTEXT DEPENDENCY INJECTION
 @Named
@@ -18,6 +19,9 @@ public class SetupBean {
 	private Setup setup = new Setup();
 
 	public void save() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		this.setup.setUsuario((Usuario) context.getExternalContext().getSessionMap().get("user"));
 		new SetupDao().save(this.setup);
 		System.out.println("Salvando..." + this.setup);
 		FacesContext.getCurrentInstance()
@@ -26,6 +30,11 @@ public class SetupBean {
 	
 	public List<Setup> getSetups(){
 		return new SetupDao().getAll();
+	}
+	
+	public List<Setup> getSetupsUsuario(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		return new SetupDao().getAllUserSetups((Usuario) context.getExternalContext().getSessionMap().get("user"));
 	}
 
 	public Setup getSetup() {

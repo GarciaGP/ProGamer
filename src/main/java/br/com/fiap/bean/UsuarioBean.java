@@ -36,9 +36,9 @@ public class UsuarioBean {
 
 	public String login() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		boolean exist = new UsuarioDao().exist(usuario);
+		usuario = new UsuarioDao().exist(usuario);
 
-		if (exist) {
+		if (usuario != null) {
 			context.getExternalContext().getSessionMap().put("user", usuario);
 			return "index?faces-redirect=true";
 		}

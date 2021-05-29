@@ -31,8 +31,8 @@ public class UsuarioDao {
 		return manager.find(Usuario.class, id);		
 	}
 
-	public boolean exist(Usuario user) {
-		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM User u WHERE "
+	public Usuario exist(Usuario user) {
+		TypedQuery<Usuario> query = manager.createQuery("SELECT u FROM Usuario u WHERE "
 							+ "email=:email AND "
 							+ "password=:password",
 							Usuario.class);
@@ -40,10 +40,9 @@ public class UsuarioDao {
 		query.setParameter("password", user.getPassword());
 		
 		try {
-			query.getSingleResult();
-			return true;
+			return query.getSingleResult();		 
 		} catch (NoResultException e) {
-			return false;
+			return null;
 		}
 
 	}

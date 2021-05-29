@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.com.fiap.model.Setup;
+import br.com.fiap.model.Usuario;
 import br.com.fiap.utils.EntityManagerFacade;
 import br.com.fiap.utils.JPAUtil;
 
@@ -22,8 +23,15 @@ public class SetupDao {
 	}
 
 	public List<Setup> getAll(){
-		String jpql = "SELECT s FROM Setup s JOIN s.user u";
+		String jpql = "SELECT s FROM Setup s JOIN s.usuario u";
 		TypedQuery<Setup> createQuery = manager.createQuery(jpql, Setup.class);
+		return createQuery.getResultList();
+	}
+	
+	public List<Setup> getAllUserSetups(Usuario usuario){
+		String jpql = "SELECT s FROM Setup s JOIN s.usuario u where s.usuario = :u";
+		TypedQuery<Setup> createQuery = manager.createQuery(jpql, Setup.class);
+		createQuery.setParameter("u", usuario);
 		return createQuery.getResultList();
 	}
 
