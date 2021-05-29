@@ -22,7 +22,7 @@ public class UsuarioDao {
 	}
 
 	public List<Usuario> getAll(){
-		String jpql = "SELECT u FROM User u";
+		String jpql = "SELECT u FROM Usuario u";
 		TypedQuery<Usuario> createQuery = manager.createQuery(jpql, Usuario.class);
 		return createQuery.getResultList();
 	}
@@ -56,6 +56,7 @@ public class UsuarioDao {
 	
 	public void delete(Usuario usuario) {
 		manager.getTransaction().begin();
+		manager.merge(usuario);
 		manager.remove(usuario);
 		manager.flush();
 		manager.getTransaction().commit();

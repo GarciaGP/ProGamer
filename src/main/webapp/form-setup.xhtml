@@ -41,28 +41,29 @@
 			
 		    <f:facet name="footer">
 		        <p:commandButton icon="pi pi-check" value="Save" action="#{setupBean.save}">
-		        	<p:ajax execute="@form" render="messages" />
+		        	<f:ajax execute="@form" render="form" />
 		        </p:commandButton>
 		        <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
 		    </f:facet>
 		</p:card>
 		</h:form>
-		
-		<h:form id="form" >
-		    <div class="card">
-		        <p:dataTable var="setup" value="#{setupBean.setupsUsuario}" styleClass="dataTable">
-		            <p:column headerText="Name">
-		                <h:outputText value="#{setup.name}" />
-		            </p:column>
-		
-		            <p:column headerText="Price">
-		                <h:outputText value="#{setup.price}" />
-		            </p:column>
-		        </p:dataTable>
-		    </div>
-		</h:form>
-		
-		
+
+		<div class="card">
+			<h:form id="form">
+				<p:dataTable id="setupTable" var="setup" value="#{setupBean.setupsUsuario}"
+					styleClass="dataTable">
+					<p:column headerText="Name">
+						<h:outputText value="#{setup.name}" />
+					</p:column>
+
+					<p:column headerText="Price">
+						<h:outputText value="#{setup.price}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</div>
+
+
 	</ui:define>
 		
 </ui:composition>
