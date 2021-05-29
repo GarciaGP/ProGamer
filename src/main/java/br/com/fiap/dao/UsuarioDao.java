@@ -57,7 +57,7 @@ public class UsuarioDao {
 	public void delete(Usuario usuario) {
 		manager.getTransaction().begin();
 		manager.merge(usuario);
-		manager.remove(usuario);
+		manager.remove(manager.getReference(Usuario.class, usuario.getCodigo()));
 		manager.flush();
 		manager.getTransaction().commit();
 	}

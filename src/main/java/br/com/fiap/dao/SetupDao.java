@@ -49,7 +49,7 @@ public class SetupDao {
 	public void delete(Setup setup) {
 		manager.getTransaction().begin();
 		manager.merge(setup);
-		manager.remove(setup);
+		manager.remove(manager.getReference(Setup.class, setup.getId()));
 		manager.flush();
 		manager.getTransaction().commit();
 	}
